@@ -26,7 +26,7 @@ The system is designed to:
 2. Enable installation from unknown sources  
 3. Install and launch AlphaStick  
 
-[Download Latest Release](https://github.com/tshivanesk/AlphaStick-Android/releases/latest)
+[Download Latest Release](https://github.com/tshivaneshk/AlphaStick-Android/releases/download/v1.0.0/AlphaStick-v1.0.0.apk)
 
 ---
 
