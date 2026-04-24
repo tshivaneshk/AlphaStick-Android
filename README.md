@@ -2,7 +2,43 @@
 
 AlphaStick is a modular Android security auditing and risk analysis engine designed to evaluate installed applications using structured, explainable heuristics.
 
-It focuses on **transparent threat modeling**, **deterministic risk scoring**, and **false-positive-aware analysis**, enabling users and developers to understand *why* an application is considered risky—not just *that* it is.
+It focuses on transparent threat modeling, deterministic risk scoring, and false-positive-aware analysis, enabling users and developers to understand **why** an application is considered risky—not just **that** it is.
+
+---
+
+## Demonstration
+
+### Video Overview
+
+https://youtu.be/GrIQSmLcMbo
+
+---
+
+## Screenshots
+
+### Device Risk Overview
+
+Displays overall device protection level and risk distribution.
+
+![Device Protection](docs/device_protection.png)
+
+### Application Risk Analysis
+
+Shows installed applications categorized by severity (INFO, LOW, MEDIUM, HIGH, CRITICAL) with calculated scores.
+
+![App List](docs/app_list.png)
+
+### Detailed App Forensics
+
+Provides deep inspection including risk classification, security findings, cryptographic signature, telemetry, and permissions.
+
+![App Details](docs/app_details.png)
+
+### Settings & Configuration
+
+Application settings and developer information.
+
+![Settings](docs/settings.png)
 
 ---
 
@@ -22,11 +58,11 @@ The system is designed to:
 
 ## Installation
 
-1. Download the latest APK from the releases page  
-2. Enable installation from unknown sources  
-3. Install and launch AlphaStick  
+1. Download the latest APK from the releases page
+2. Enable installation from unknown sources
+3. Install and launch AlphaStick
 
-[Download Latest Release](https://github.com/tshivaneshk/AlphaStick-Android/releases/download/v1.0.0/AlphaStick-v1.0.0.apk)
+[Download Latest Release](https://github.com/tshivaneskh/AlphaStick-Android/releases/latest)
 
 ---
 
