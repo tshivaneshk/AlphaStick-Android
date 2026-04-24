@@ -1,95 +1,95 @@
 # AlphaStick
 
-AlphaStick is an Android security auditing and threat analysis application designed to evaluate installed applications using structured, explainable heuristics. It provides users and developers with transparent insights into potential security risks, misconfigurations, and privacy concerns within their application environment.
+AlphaStick is a modular Android security auditing and risk analysis engine designed to evaluate installed applications using structured, explainable heuristics.
 
-Unlike conventional permission viewers or opaque “risk score” tools, AlphaStick emphasizes **modularity, explainability, and reduced false positives**, making it suitable for both educational and practical auditing scenarios.
+It focuses on **transparent threat modeling**, **deterministic risk scoring**, and **false-positive-aware analysis**, enabling users and developers to understand *why* an application is considered risky—not just *that* it is.
 
 ---
 
 ## Overview
 
-AlphaStick performs on-device analysis of installed applications by combining static inspection with behavioral inference. It evaluates multiple security signals, aggregates them through a deterministic scoring model, and presents findings in a structured and explainable format.
+AlphaStick performs on-device analysis by combining static inspection with behavioral inference. Instead of relying on opaque scoring, it produces **traceable security findings** backed by clearly defined logic and contextual validation.
 
 The system is designed to:
 
-* Identify insecure application configurations
-* Highlight privacy-sensitive behaviors
-* Reduce false positives through contextual validation
-* Provide actionable mitigation guidance
+* Detect insecure application configurations and exposed attack surfaces
+* Identify privacy-sensitive or dormant applications with elevated permissions
+* Provide explainable, factor-based risk scoring
+* Minimize false positives through contextual awareness
+* Deliver actionable mitigation guidance
 
 ---
 
-## Core Features
+## Key Capabilities
 
-### Modular Security Scanning Engine
+### Modular Security Scanning Architecture
 
-* Decoupled scanning architecture using a unified `AppScanner` interface
-* Independent scanners for:
+* Unified `AppScanner` interface for extensibility
+* Independent scanning modules:
 
-  * Permissions
-  * Manifest flags
-  * Usage behavior (telemetry)
-  * Installer source
-  * Cryptographic signatures
-* Centralized orchestration via a `ScanOrchestrator`
+  * Permission analysis
+  * Manifest configuration analysis
+  * Usage-based behavioral analysis
+  * Installer source validation
+  * Cryptographic signature auditing
+* Central orchestration via `ScanOrchestrator`
 
-### Explainable Risk Scoring
+### Deterministic and Explainable Risk Scoring
 
-* Deterministic scoring model with clearly defined contributing factors
+* Rule-based scoring model with explicit contributing factors
 * Each result includes:
 
   * Total risk score (0–100)
   * Individual risk factors with score impact
   * Severity classification
-* Eliminates black-box behavior by exposing reasoning behind every score
+* Eliminates black-box scoring by exposing full reasoning
 
-### Structured Security Findings
+### Structured Security Findings Model
 
-* Unified data model (`SecurityFinding`) across all scanners
+* Standardized `SecurityFinding` abstraction across all scanners
 * Each finding includes:
 
-  * Title and description
-  * Severity level (INFO, LOW, MEDIUM, HIGH, CRITICAL)
+  * Description and root cause
+  * Severity (INFO, LOW, MEDIUM, HIGH, CRITICAL)
   * Confidence level (LOW, MEDIUM, HIGH)
-  * Root cause explanation
   * Mitigation guidance
 
-### Zombie Tracker Detection (Behavioral Analysis)
+### Behavioral Risk Detection (Zombie Tracker)
 
 * Identifies applications that:
 
   * Hold sensitive permissions
-  * Remain unused over extended periods
-* Flags potential background data collection risks
-* Incorporates contextual filtering to reduce false positives
+  * Remain unused for extended periods
+* Highlights potential background data exposure risks
+* Applies contextual filtering to reduce false positives
 
-### Manifest and Configuration Analysis
+### Application Configuration Analysis
 
-* Detects critical application-level vulnerabilities:
+* Detects critical misconfigurations:
 
   * Debuggable builds in production
-  * Backup exposure risks
-  * Cleartext network traffic usage
+  * Backup-enabled data exposure risks
+  * Cleartext network communication
   * Outdated target SDK versions
 
 ### Installer Source Intelligence
 
-* Classifies application origin using installer package analysis
-* Distinguishes between:
+* Classifies applications based on installation origin
+* Differentiates:
 
-  * Trusted sources (e.g., Play Store, OEM stores)
-  * Unknown or sideloaded installations
-* Includes OEM trust whitelist to prevent misclassification
+  * Trusted sources (Play Store, OEM marketplaces)
+  * Unknown or sideloaded sources
+* Uses OEM trust whitelist to prevent misclassification
 
 ### Cryptographic Signature Auditing
 
-* Extracts and processes application signing certificates
-* Generates SHA-256 signature hashes for verification
-* Enables identification of repackaged or tampered applications
+* Extracts application signing certificates
+* Generates SHA-256 signature hashes
+* Enables detection of repackaged or tampered applications
 
 ### False Positive Mitigation
 
-* Context-aware validation system
+* Context-aware validation layer
 * Adjusts severity and confidence based on:
 
   * System application status
@@ -98,39 +98,53 @@ The system is designed to:
 
 ### JSON Audit Export
 
-* Exports full scan results in structured JSON format
-* Enables sharing with security teams or further analysis
-* Includes all findings, scores, and metadata
+* Exports complete scan results in structured JSON format
+* Includes:
+
+  * Risk scores
+  * Findings
+  * Metadata
+* Designed for sharing and external analysis
+
+---
+
+## System Flow
+
+1. Application metadata is collected from the Android system
+2. Modular scanners independently analyze different security dimensions
+3. Findings are normalized into a structured model (`SecurityFinding`)
+4. Risk factors are aggregated into a deterministic scoring engine
+5. Results are presented with full explainability in the UI and export layer
 
 ---
 
 ## Architecture
 
-AlphaStick follows a strict Clean Architecture approach with clear separation of concerns:
+AlphaStick follows a strict Clean Architecture model:
 
-* **Presentation Layer**
+### Presentation Layer
 
-  * Jetpack Compose (Material 3)
-  * State-driven UI using StateFlow
-  * Lifecycle-aware updates
+* Jetpack Compose (Material 3)
+* State-driven UI using StateFlow
+* Lifecycle-aware re-scanning
 
-* **Domain Layer**
+### Domain Layer
 
-  * Risk scoring engine
-  * Security models and business logic
-  * Scanner orchestration
+* Risk scoring engine
+* Security models and rule evaluation
+* Scanner orchestration logic
 
-* **Data Layer**
+### Data Layer
 
-  * Android system interfaces (PackageManager, UsageStatsManager)
-  * Data extraction and transformation
+* Android system APIs (PackageManager, UsageStatsManager)
+* Data extraction and transformation
 
-### Key Design Principles
+### Design Principles
 
-* Modularity and extensibility
+* Clear separation of concerns
+* Modular and extensible components
 * Deterministic and explainable logic
-* Minimal external dependencies
-* Clear separation between data, domain, and UI layers
+* Minimal reliance on external libraries
 
 ---
 
@@ -147,28 +161,30 @@ AlphaStick follows a strict Clean Architecture approach with clear separation of
 
 ## Use Cases
 
-* Auditing installed applications for security misconfigurations
-* Identifying privacy risks in dormant or background-active apps
-* Educational exploration of Android application security concepts
+* Auditing installed applications for security weaknesses
+* Identifying privacy risks in dormant applications
+* Understanding Android application security at a system level
 * Demonstrating modular security analysis architecture
 
 ---
 
 ## Limitations
 
-AlphaStick is a **static and heuristic-based auditing tool**. It does not:
+AlphaStick is a **static and heuristic-based auditing tool**.
+
+It does not:
 
 * Perform real-time network traffic inspection
-* Execute dynamic malware analysis
+* Execute dynamic runtime or behavioral malware analysis
 * Replace antivirus or endpoint protection solutions
 
-The results should be interpreted as **risk indicators**, not definitive malware detection.
+All results should be interpreted as **risk indicators**, not definitive threat classifications.
 
 ---
 
 ## Project Status
 
-This project is currently under active development. Features and detection logic are continuously being refined to improve accuracy and reduce false positives.
+This project is under active development. Detection logic and scoring models are continuously refined to improve accuracy and reduce false positives.
 
 ---
 
