@@ -20,6 +20,16 @@ The system is designed to:
 
 ---
 
+## Installation
+
+1. Download the latest APK from the releases page  
+2. Enable installation from unknown sources  
+3. Install and launch AlphaStick  
+
+[Download Latest Release](https://github.com/tshivanesk/AlphaStick-Android/releases/latest)
+
+---
+
 ## Key Capabilities
 
 ### Modular Security Scanning Architecture
